@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Muhammad Ehsan - IT Support & Network Associate | Full CV - Terminal Portfolio" />
+    <meta name="theme-color" content="#0a0e0f" />
+    <link rel="dns-prefetch" href="//api.github.com" />
+    <link rel="preconnect" href="https://api.github.com" crossorigin />
+    <title>Muhammad Ehsan — Full CV</title>
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Muhammad Ehsan",
+            "jobTitle": "IT Support & Network Associate",
+            "description": "Self-forged IT professional with 8 years of operational experience and a passion for cybersecurity.",
+            "url": "https://github.com/ehsan42315",
+            "sameAs": [
+                "https://github.com/ehsan42315",
+                "https://www.linkedin.com/in/muhammad-ehsan-a8610a304/"
+            ],
+            "knowsAbout": ["IT Support", "Networking", "Cybersecurity", "Linux", "Troubleshooting"],
+            "worksFor": { "@type": "Organization", "name": "Open Source & Self-Study" }
+        }
+    </script>
+
+    <style>
+        /* ─── RESET & BASE (same as before) ─── */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0a0e0f;
+            --surface: #111618;
+            --surface2: #1a2124;
+            --border: #2a3a3a;
+            --green: #00ff88;
+            --green-dim: #00cc77;
+            --green-glow: rgba(0, 255, 136, 0.15);
+            --text: #d4e6e6;
+            --text-dim: #7a9a9a;
+            --red: #ff4d6d;
+            --blue: #4dc9f6;
+            --purple: #b388ff;
+            --yellow: #ffd54f;
+            --radius: 6px;
+            --font: 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
+            --transition: 0.25s cubic-bezier(0.2, 0.9, 0.4, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font);
+            font-size: 14px;
+            line-height: 1.5;
+            padding: 16px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        #matrix-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.12;
+        }
+
+        .terminal-wrapper {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 1100px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px 28px 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px var(--green-glow), inset 0 0 60px rgba(0, 255, 136, 0.02);
+            backdrop-filter: blur(2px);
+            transition: box-shadow var(--transition);
+        }
+
+        .terminal-wrapper:hover {
+            box-shadow: 0 24px 72px rgba(0, 0, 0, 0.9), 0 0 60px var(--green-glow), inset 0 0 80px rgba(0, 255, 136, 0.04);
+        }
+
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 22px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border);
+            user-select: none;
+        }
+
+        .dot-group {
+            display: flex;
+            gap: 8px;
+        }
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            transition: opacity 0.2s;
+        }
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27c93f; }
+        .dot:hover { opacity: 0.7; }
+
+        .terminal-title {
+            margin-left: 12px;
+            color: var(--text-dim);
+            font-size: 13px;
+            letter-spacing: 0.3px;
+        }
+        .terminal-title span { color: var(--green); }
+
+        .terminal-actions {
+            margin-left: auto;
+            display: flex;
+            gap: 12px;
+            color: var(--text-dim);
+            font-size: 13px;
+            flex-wrap: wrap;
+        }
+        .terminal-actions a {
+            color: var(--text-dim);
+            text-decoration: none;
+            transition: color var(--transition);
+        }
+        .terminal-actions a:hover { color: var(--green); }
+
+        .banner {
+            color: var(--green);
+            font-size: 10px;
+            line-height: 1.15;
+            white-space: pre;
+            margin: 0 0 18px 0;
+            opacity: 0.85;
+            overflow-x: auto;
+            user-select: none;
+            text-shadow: 0 0 8px rgba(0, 255, 136, 0.12);
+        }
+        .banner .hl { color: var(--purple); }
+        .banner .hl2 { color: var(--blue); }
+        .banner .hl3 { color: var(--yellow); }
+
+        .terminal-body { min-height: 420px; }
+
+        .line {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            padding: 2px 0;
+            flex-wrap: wrap;
+        }
+
+        .prompt {
+            color: var(--green);
+            font-weight: 600;
+            white-space: nowrap;
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.15);
+        }
+        .prompt .user { color: var(--green-dim); }
+        .prompt .at { color: var(--text-dim); }
+        .prompt .host { color: var(--blue); }
+        .prompt .path { color: var(--yellow); }
+        .prompt .sigil { color: var(--green); font-weight: 700; }
+
+        .command {
+            color: #fff;
+            font-weight: 400;
+            letter-spacing: 0.2px;
+        }
+        .command .highlight { color: var(--purple); }
+
+        .cmd-cursor {
+            display: inline-block;
+            width: 10px;
+            height: 20px;
+            background: var(--green);
+            animation: blink 1s step-end infinite;
+            vertical-align: text-bottom;
+            margin-left: 2px;
+            box-shadow: 0 0 12px var(--green-glow);
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .output-block {
+            margin: 6px 0 14px 0;
+            padding-left: 4px;
+            color: var(--text);
+            overflow-x: auto;
+        }
+        .output-block .error { color: var(--red); }
+        .output-block .success { color: var(--green); }
+        .output-block .dim { color: var(--text-dim); }
+
+        .section-title {
+            color: var(--green);
+            font-size: 16px;
+            font-weight: 600;
+            margin: 18px 0 12px 0;
+            padding-bottom: 4px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-title .badge {
+            font-size: 10px;
+            background: var(--surface2);
+            color: var(--text-dim);
+            padding: 0 10px;
+            border-radius: 20px;
+            font-weight: 400;
+            border: 1px solid var(--border);
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+            margin: 6px 0 12px;
+        }
+
+        .project-card {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px 18px;
+            transition: all var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.02), transparent 60%);
+            pointer-events: none;
+        }
+        .project-card:hover {
+            border-color: var(--green);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 20px var(--green-glow);
+        }
+
+        .project-card .name {
+            color: #fff;
+            font-weight: 600;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .project-card .name .lang {
+            font-size: 10px;
+            font-weight: 400;
+            color: var(--text-dim);
+            background: var(--bg);
+            padding: 0 8px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+        .project-card .desc {
+            color: var(--text-dim);
+            font-size: 13px;
+            margin: 6px 0 10px;
+            line-height: 1.4;
+        }
+        .project-card .meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            font-size: 12px;
+            color: var(--text-dim);
+            align-items: center;
+        }
+        .project-card .meta span { display: flex; align-items: center; gap: 4px; }
+        .project-card .meta .link {
+            color: var(--green);
+            text-decoration: none;
+            border-bottom: 1px dotted var(--green-dim);
+        }
+        .project-card .meta .link:hover { border-bottom-color: var(--green); }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 14px;
+            margin: 8px 0 16px;
+        }
+        .stat-item {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 12px 16px;
+            text-align: center;
+            transition: border var(--transition);
+        }
+        .stat-item:hover { border-color: var(--green); }
+        .stat-item .value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 0.5px;
+        }
+        .stat-item .label {
+            font-size: 11px;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 2px;
+        }
+        .stat-item .value.green { color: var(--green); }
+        .stat-item .value.blue { color: var(--blue); }
+        .stat-item .value.purple { color: var(--purple); }
+        .stat-item .value.yellow { color: var(--yellow); }
+
+        .lang-bars { margin: 8px 0 10px; }
+        .lang-bar-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 3px 0;
+        }
+        .lang-bar-row .lang-name {
+            width: 70px;
+            flex-shrink: 0;
+            color: var(--text-dim);
+            font-size: 12px;
+            text-align: right;
+        }
+        .lang-bar-track {
+            flex: 1;
+            height: 6px;
+            background: var(--bg);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .lang-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 1s ease;
+            width: 0;
+        }
+
+        .heatmap {
+            display: grid;
+            grid-template-columns: repeat(26, 1fr);
+            gap: 3px;
+            margin: 8px 0 10px;
+        }
+        .heatmap .day {
+            aspect-ratio: 1;
+            border-radius: 2px;
+            background: var(--bg);
+            transition: background 0.3s;
+        }
+        .heatmap .day.l0 { background: #1a2124; }
+        .heatmap .day.l1 { background: #0d4a3a; }
+        .heatmap .day.l2 { background: #0f7a5a; }
+        .heatmap .day.l3 { background: #1aa87a; }
+        .heatmap .day.l4 { background: #2dd4a0; }
+        .heatmap .day.l5 { background: #5eecc0; }
+
+        .loading {
+            color: var(--text-dim);
+            font-style: italic;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        .error-msg {
+            color: var(--red);
+            background: rgba(255, 77, 109, 0.08);
+            border: 1px solid var(--red);
+            border-radius: var(--radius);
+            padding: 10px 14px;
+        }
+
+        .about-text {
+            color: var(--text-dim);
+            max-width: 720px;
+            line-height: 1.6;
+        }
+        .about-text strong { color: #fff; }
+
+        .contact-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            margin: 6px 0 4px;
+        }
+        .contact-links a {
+            color: var(--green);
+            text-decoration: none;
+            border-bottom: 1px dotted var(--green-dim);
+            transition: all var(--transition);
+        }
+        .contact-links a:hover {
+            color: #fff;
+            border-bottom-color: #fff;
+        }
+
+        /* ─── NEW: Experience cards ─── */
+        .exp-card {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 14px 18px;
+            margin: 8px 0;
+            transition: border var(--transition);
+        }
+        .exp-card:hover { border-color: var(--green); }
+        .exp-card .exp-title {
+            color: #fff;
+            font-weight: 600;
+            font-size: 15px;
+        }
+        .exp-card .exp-period {
+            color: var(--text-dim);
+            font-size: 12px;
+            margin-left: 12px;
+        }
+        .exp-card .exp-desc {
+            color: var(--text-dim);
+            font-size: 13px;
+            margin-top: 4px;
+            line-height: 1.5;
+        }
+        .exp-card .exp-desc li {
+            margin-left: 18px;
+            list-style-type: disc;
+            color: #aaa;
+        }
+
+        /* ─── Education, Certs, Languages, Achievements ─── */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px 20px;
+            margin: 6px 0;
+        }
+        .info-item {
+            color: var(--text-dim);
+            font-size: 13px;
+            padding: 2px 0;
+            border-bottom: 1px dotted var(--border);
+        }
+        .info-item .label {
+            color: var(--text);
+            font-weight: 500;
+        }
+        .info-item .value {
+            color: var(--text-dim);
+        }
+
+        .terminal-footer {
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-size: 12px;
+            color: var(--text-dim);
+        }
+        .terminal-footer .keys { display: flex; gap: 14px; }
+        .terminal-footer .keys kbd {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            padding: 0 8px;
+            font-size: 11px;
+            color: var(--text);
+            font-family: var(--font);
+        }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--green-dim); }
+
+        @media (max-width: 720px) {
+            body { padding: 8px; }
+            .terminal-wrapper { padding: 14px 16px 12px; }
+            .terminal-title { font-size: 11px; margin-left: 6px; }
+            .terminal-actions { font-size: 11px; gap: 6px; }
+            .banner { font-size: 7px; }
+            .project-grid { grid-template-columns: 1fr; }
+            .stats-row { grid-template-columns: 1fr 1fr; }
+            .heatmap { gap: 2px; }
+            .prompt { font-size: 13px; }
+            .command { font-size: 13px; }
+            .info-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 400px) {
+            .stats-row { grid-template-columns: 1fr; }
+            .terminal-actions { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="matrix-canvas"></canvas>
+
+    <div class="terminal-wrapper" role="main">
+
+        <!-- HEADER -->
+        <header class="terminal-header">
+            <div class="dot-group">
+                <span class="dot dot-red" title="Close"></span>
+                <span class="dot dot-yellow" title="Minimize"></span>
+                <span class="dot dot-green" title="Maximize"></span>
+            </div>
+            <div class="terminal-title">
+                <span>●</span> ~/cv — zsh
+            </div>
+            <div class="terminal-actions">
+                <a href="#whoami">whoami</a>
+                <a href="#projects">projects</a>
+                <a href="#skills">skills</a>
+                <a href="#experience">exp</a>
+                <a href="#education">edu</a>
+                <a href="#certifications">certs</a>
+                <a href="#languages">lang</a>
+                <a href="#achievements">achieve</a>
+                <a href="#contact">contact</a>
+            </div>
+        </header>
+
+        <!-- BANNER -->
+        <pre class="banner" aria-hidden="true">
+            <span class="hl">╔══════════════════════════════════════════════════════╗</span>
+            <span class="hl">║</span>  <span class="hl2">▀▄▀▄▀▄</span>  MUHAMMAD EHSAN  <span class="hl2">▄▀▄▀▄▀</span>    <span class="hl3">v2.0 — Full CV</span>  <span class="hl">║</span>
+            <span class="hl">║</span>  <span class="hl3">⚡</span>  IT Support &amp; Network Associate  <span class="hl3">⚡</span>            <span class="hl">║</span>
+            <span class="hl">║</span>  <span class="dim">»</span>  Cybersecurity Enthusiast  <span class="dim">«</span>                   <span class="hl">║</span>
+            <span class="hl">║</span>  <span class="dim">8+ years operational · Self-forged · Faith-driven</span>   <span class="hl">║</span>
+            <span class="hl">╚══════════════════════════════════════════════════════╝</span>
+        </pre>
+
+        <!-- BODY -->
+        <div class="terminal-body">
+
+            <!-- ─── whoami ─── -->
+            <div class="line" id="whoami">
+                <span class="prompt"><span class="user">user</span><span class="at">@</span><span class="host">terminal</span><span class="path">:~</span><span class="sigil">$</span></span>
+                <span class="command">whoami</span>
+            </div>
+            <div class="output-block">
+                <span class="success">✦ Muhammad Ehsan</span><br />
+                <span class="dim">IT Support &amp; Network Associate | Cybersecurity Enthusiast</span><br />
+                <span class="dim">📍 Faisalabad, Pakistan · 📞 +92 327 0386206</span><br />
+                <span class="dim">📧 muhammad-ehsan234913@gmail.com · DOB: 2 June 2002</span>
+            </div>
+
+            <!-- ─── stats ─── -->
+            <div class="line">
+                <span class="prompt"><span class="user">user</span><span class="at">@</span><span class="host">terminal</span><span class="path">:~</span><span class="sigil">$</span></span>
+                <span class="command">stats <span class="highlight">--github</span></span>
+            </div>
+            <div class="output-block">
+                <div class="stats-row" id="stats-row">
+                    <div class="stat-item"><div class="value green" id="stat-repos">…</div><div class="label">Repos</div></div>
+                    <div class="stat-item"><div class="value blue" id="stat-stars">…</div><div class="label">Stars</div></div>
+                    <div class="stat-item"><div class="value purple" id="stat-forks">…</div><div class="label">Forks</div></div>
+                    <div class="stat-item"><div class="value yellow" id="stat-issues">…</div><div class="label">Issues</div></div>
+                </div>
+            </div>
+
+            <!-- ─── Projects ─── -->
+            <div class="line" id="projects">
+                <span class="prompt"><span class="user">user</span><span class="at">@</span><span class="host">terminal</span><span class="path">:~</span><span class="sigil">$</span></span>
+                <span class="command">ls <span class="highlight">-la</span> ./projects/</span>
+            </div>
+            <div class="output-block">
+                <div class="section-title">
+                    📁 Pinned Projects
+                    <span class="badge" id="project-count">loading…</span>
+                </div>
+                <div id="projects-container" style="min-height:200px;">
+                    <div class="loading">⏳ Fetching project data from GitHub…</div>
+                    <noscript><div class="error-msg">⚠️ JavaScript required for live GitHub data.</div></noscript>
+                </div>
+            </div>
+
+            <!-- ─── Skills ─── -->
+            <div class="line" id="skills">
+                <span class="prompt"><span class="user">user</span><span class="at">@</span><span class="host">terminal</span><span class="path">:~</span><span class="sigil">$</span></span>
+                <span class="command">skills <span class="highlight">--top</span></span>
+            </div>
+            <div class="output-block">
+                <div class="section-title" style="margin-top:0;">
+                    🛠️ Core Technical Skills
+                    <span class="badge">proficiency</span>
+                </div>
+                <div class="lang-bars" id="lang-bars-container">
+                    <div class="loading">Loading skills data…</div>
+                </div>
+            </div>
+
+            <!-- ─── Heatmap ─── -->
+            <div class="line">
+                <span class="prompt"><span class="user">user</span><span class="at">@</span><span class="host">terminal</span><span class="path">:~</span><span class="sigil">$</span></span>
+                <span class="command">heatmap <span class="highlight">--year</span></span>
+            </div>
+            <div class="output-block">
+                <div class="section-title" style="margin-top:0;">
+                    🔥 Contribution Activity
+                    <span class="badge">simulated</span>
+                </div>
+                <div class="heatmap" id="heatmap-container">
+                    <!-- filled by JS -->
+                </div>
+                <div class="dim" style="font-size:11px;margin-top:4px;">← less &nbsp;·&nbsp; more →</div>
+            </div>
+
+            <!-- ─── Education ─── -->
+            <div class="line" id="education">
+                <span class="prompt"><span class="user">user</span><span class="at">@</span><span class="host">terminal</span><span class="path">:~</span><span class="sigil">$</span></span>
+                <span class="command">cat <span class="highlight">~/education</span></span>
+            </div>
+            <div class="output-block">
+                <div class="section-title">🎓 Education</div>
+                <div class="info-grid">
+                    <div class="info-item"><span class="label">Matriculation (Science)</span><span class="value">BISE Faisalabad, 2023</span></div>
+                    <div class="info-item"><span class="label">Self-Directed Learning</span><span class="value">Cybersecurity, Networking, Linux — ongoing</span></div>
+                </div>
+                <div class="dim" style="margin-top:6px;font-size:13px;">Completed Matriculation while working full‑time — demonstrates exceptional discipline and time management.</div>
+            </div>
+
+            <!-- ─── Certifications ─── -->
+            <div class="line" id="certifications">
+                <span class="prompt"><span class="user">user</span><span class="at">@</span><span class="host">terminal</span><span class="path">:~</span><span class="sigil">$</span></span>
+                <span class="command">cat <span class="highlight">~/certifications</span></span>
+            </div>
+            <div class="output-block">
+                <div class="section-title">📜 Certifications & Badges</div>
+                <ul style="list-style-type:none;padding-left:8px;color:var(--text-dim);">
+                    <li style="margin:4px 0;">✅ <strong>TryHackMe</strong> — 40+ Completed Labs (Network Security, Privilege Escalation, Web Hacking)</li>
+                    <li style="margin:4px 0;">✅ <strong>HackTheBox</strong> — Beginner-to-Intermediate Track Completed</li>
+                    <li style="margin:4px 0;">✅ <strong>Kali Linux</strong> — Hands-on Deployment and Configuration on Microsoft Surface</li>
+                </ul>
+            </div>
+
+            <!-- ─── Experience ─── -->
+            <div class="line" id="experience">
+                <span class="prompt"><span class="user">user</span><span class="at">@</span><span class="host">terminal</span><span class="path">:~</span><span class="sigil">$</span></span>
+                <span class="command">cat <span class="highlight">~/experience</span></span>
+            </div>
+            <div class="output-block">
+                <div class="section-title">💼 Professional Experience</div>
+
+                <div class="exp-card">
+                    <div class="exp-title">Factory Operations <span class="exp-period">2024</span></div>
+                    <div class="exp-desc">
+                        Observed production lines and industrial process control. Studied machinery safety protocols and supply chain logistics. Gained insight into ICS/SCADA environments and industrial vulnerabilities. Monitored UPS and generator backup systems — ensuring zero downtime during outages.
+                    </div>
+                </div>
+
+                <div class="exp-card">
+                    <div class="exp-title">Super Store Operations <span class="exp-period">2024</span></div>
+                    <div class="exp-desc">
+                        Managed inventory systems and data management (bar-code systems, retail software). Analyzed consumer behavior patterns and purchase cycles. Learned backend database operations and retail security protocols.
+                    </div>
+                </div>
+
+                <div class="exp-card">
+                    <div class="exp-title">Point-of-Sale & Digital Operations <span class="exp-period">2022–2024</span></div>
+                    <div class="exp-desc">
+                        Operated digital POS systems and billing software. Ensured 100% order accuracy under extreme stress. Served as bridge between customer, chef, and management — real-time communication relay. Trained new waiters on systems and customer handling.
+                    </div>
+                </div>
+
+                <div class="exp-card">
+                    <div class="exp-title">Food Service & Customer Operations <span class="exp-period">2019–2022</span></div>
+                    <div class="exp-desc">
+                        Handled 20+ tables simultaneously during peak hours. Developed photographic memory for complex orders. Resolved 20+ customer complaints per shift with 95% satisfaction rate. Coordinated with 5+ team members during critical rushes. Mastered non-verbal communication — reading customer moods and body language.
+                    </div>
+                </div>
+
+                <div class="exp-card">
+                    <div class="exp-title">Kitchen Operations <span class="exp-period">2017–2019</span></div>
+                    <div class="exp-desc">
+                        Cross-cuisine kitchen operations specialist — Pakistani, Chinese, BBQ &amp; Tandoor. Mastered two diametrically opposite kitchen ecosystems: Pakistani (high-volume, chaotic) and Chinese (precision-based, temperature-critical). Operated BBQ and Tandoor sections — understanding physical fire control and industrial heat management. Maintained 10-12 hour shifts in extreme temperatures.
+                    </div>
+                </div>
+            </div>
+
+            <!-- ─── Languages ─── -->
+            <div class="line" id="languages">
+                <span class="prompt"><span class="user">user</span><span class="at">@</span><span class="host">terminal</span><span class="path">:~</span><span class="sigil">$</span></span>
+                <span class="command">cat <span class="highlight">~/languages</span></span>
+            </div>
+            <div class="output-block">
+                <div class="section-title">🌍 Languages</div>
+                <div class="info-grid">
+                    <div class="info-item"><span class="label">Punjabi</span><span class="value">Native (Mother Tongue)</span></div>
+                    <div class="info-item"><span class="label">Urdu</span><span class="value">Native (National Language — Fluent)</span></div>
+                    <div class="info-item"><span class="label">English</span><span class="value">Professional Proficiency (Reading, Writing, Speaking)</span></div>
+                </div>
+            </div>
+
+            <!-- ─── Achievements ─── -->
+            <div class="line" id="achievements">
+                <span class="prompt"><span class="user">user</span><span class="at">@</span><span class="host">terminal</span><span class="path">:~</span><span class="sigil">$</span></span>
+                <span class="command">cat <span class="highlight">~/achievements</span></span>
+            </div>
+            <div class="output-block">
+                <div class="section-title">🏆 Key Achievements</div>
+                <ul style="list-style-type:none;padding-left:8px;color:var(--text-dim);">
+                    <li style="margin:4px 0;">✅ <strong>8 years of continuous employment</strong> across challenging, high-pressure environments</li>
+                    <li style="margin:4px 0;">✅ <strong>40+ cybersecurity labs</strong> completed on TryHackMe and HackTheBox</li>
+                    <li style="margin:4px 0;">✅ <strong>Self-taught networking fundamentals</strong> — IP addressing, subnetting, DNS, OSI model</li>
+                    <li style="margin:4px 0;">✅ <strong>Kali Linux deployment</strong> with UEFI/BIOS and driver management expertise</li>
+                    <li style="margin:4px 0;">✅ <strong>Crisis management expertise</strong> developed through 8 years of peak-hour operations</li>
+                    <li style="margin:4px 0;">✅ <strong>Cross-industry operational intelligence</strong> spanning hospitality, retail, and industrial sectors</li>
+                    <li style="margin:4px 0;">✅ <strong>AI-powered productivity</strong> — using ChatGPT, Claude, and GitHub Copilot to accelerate learning</li>
+                </ul>
+            </div>
+
+            <!-- ─── References ─── -->
+            <div class="line" id="references">
+                <span class="prompt"><span class="user">user</span><span class="at">@</span><span class="host">terminal</span><span class="path">:~</span><span class="sigil">$</span></span>
+                <span class="command">cat <span class="highlight">~/references</span></span>
+            </div>
+            <div class="output-block">
+                <div class="section-title">📌 References</div>
+                <div class="dim">Available upon request.</div>
+            </div>
+
+            <!-- ─── About (profile) ─── -->
+            <div class="line" id="about">
+                <span class="prompt"><span class="user">user</span><span class="at">@</span><span class="host">terminal</span><span class="path">:~</span><span class="sigil">$</span></span>
+                <span class="command">cat <span class="highlight">~/.profile</span></span>
+            </div>
+            <div class="output-block">
+                <div class="section-title">🧠 About Me</div>
+                <div class="about-text">
+                    <p><strong>Origin Story:</strong> Late 2018, Quilium Restaurant, D-Ground, Faisalabad — a cousin's offhand remark about <em>"Free WiFi"</em> ignited an obsession that evolved into a full-spectrum IT and cybersecurity skillset.</p>
+                    <p style="margin-top:8px;"><strong>Core Belief:</strong> My strength comes from my faith — I trust in Allah and His beloved Prophet Muhammad ﷺ as my ultimate guides and supporters.</p>
+                    <p style="margin-top:8px;"><strong>Motivation:</strong> 8 years of hospitality taught me resilience. Now I bring that same discipline to IT — solving problems before they happen, and never giving up until the job is done.</p>
+                    <p style="margin-top:8px;"><strong>Professional Summary:</strong> Self-forged IT professional with <strong>8 years of operational experience</strong> in high-pressure environments (Restaurants, Super Store, Factory) and a self-taught foundation in networking fundamentals, system troubleshooting, and security protocols.</p>
+                </div>
+            </div>
+
+            <!-- ─── Contact ─── -->
+            <div class="line" id="contact">
+                <span class="prompt"><span class="user">user</span><span class="at">@</span><span class="host">terminal</span><span class="path">:~</span><span class="sigil">$</span></span>
+                <span class="command">cat <span class="highlight">~/.contacts</span></span>
+            </div>
+            <div class="output-block">
+                <div class="section-title">📬 Contact &amp; Social</div>
+                <div class="contact-links">
+                    <a href="https://github.com/ehsan42315" target="_blank" rel="noopener">🐙 GitHub</a>
+                    <a href="https://www.linkedin.com/in/muhammad-ehsan-a8610a304/" target="_blank" rel="noopener">🔗 LinkedIn</a>
+                    <a href="mailto:muhammad-ehsan234913@gmail.com">✉️ Email</a>
+                    <a href="tel:+923270386206">📞 +92 327 0386206</a>
+                </div>
+                <div style="margin-top:10px;color:var(--text-dim);font-size:13px;">
+                    💡 Open to collaboration &amp; opportunities — feel free to reach out.
+                </div>
+            </div>
+
+            <!-- ─── Motto ─── -->
+            <div class="line">
+                <span class="prompt"><span class="user">user</span><span class="at">@</span><span class="host">terminal</span><span class="path">:~</span><span class="sigil">$</span></span>
+                <span class="command">motto</span>
+            </div>
+            <div class="output-block">
+                <span class="success">◆</span> <em>"I don't just fix problems — I solve them before they happen. 8 years of crisis management taught me that calm is a weapon, and persistence is a tool. With Allah's guidance, I turn challenges into opportunities."</em>
+            </div>
+
+            <!-- ─── Ready ─── -->
+            <div class="line">
+                <span class="prompt"><span class="user">user</span><span class="at">@</span><span class="host">terminal</span><span class="path">:~</span><span class="sigil">$</span></span>
+                <span class="command">echo <span class="highlight">"Ready for takeoff 🚀"</span></span>
+            </div>
+            <div class="output-block">
+                <span class="success">◆ Ready for takeoff 🚀</span>
+                <span class="dim" style="display:block;margin-top:2px;">Type <kbd style="background:var(--surface2);border:1px solid var(--border);border-radius:3px;padding:0 8px;font-family:var(--font);">help</kbd> for a list of commands.</span>
+            </div>
+
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="terminal-footer">
+            <span>⏻ <span id="uptime">00:00:00</span> &nbsp;·&nbsp; <span id="session-id">⚡</span></span>
+            <div class="keys">
+                <kbd>⌘</kbd> <kbd>K</kbd> <span class="dim">clear</span>
+                <kbd>⌘</kbd> <kbd>R</kbd> <span class="dim">reload</span>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        /* ────────────────────────────────────────────────
+           CONFIG — Updated for full CV
+           ──────────────────────────────────────────────── */
+        const GITHUB_USERNAME = 'ehsan42315';
+
+        const REPO_NAMES = [
+            'kali-deployment',
+            'network-lab',
+            'cybersecurity-labs',
+            'pos-system',
+            'ai-assisted-tools'
+        ];
+
+        const FALLBACK_DESCS = {
+            'kali-deployment': 'Kali Linux deployment on Microsoft Surface with UEFI/BIOS configuration, driver management, and multi-boot setup.',
+            'network-lab': 'Comprehensive network diagnostics lab — mastering ping, tracert, ipconfig, nslookup, and Wi-Fi security protocols.',
+            'cybersecurity-labs': '40+ labs on TryHackMe and HackTheBox covering network scanning, privilege escalation, web exploitation, and log analysis.',
+            'pos-system': 'Researched POS architecture, database integration (PostgreSQL), payment security, and network configuration.',
+            'ai-assisted-tools': 'Leveraged ChatGPT, Claude, and GitHub Copilot for accelerated learning, debugging, and professional writing.'
+        };
+
+        // Static skills (proficiency 1-5) — used as fallback
+        const STATIC_SKILLS = {
+            'Linux (Kali/Ubuntu)': 5,
+            'Networking (TCP/IP, DNS, DHCP)': 5,
+            'Cybersecurity (Nmap, Metasploit)': 4,
+            'Windows Troubleshooting': 4,
+            'Python / Bash Scripting': 3,
+            'AI Tools (ChatGPT, Copilot)': 4,
+            'Hardware Support': 4
+        };
+
+        const LANGUAGE_COLORS = {
+            'Linux (Kali/Ubuntu)': '#00ADD8',
+            'Networking (TCP/IP, DNS, DHCP)': '#f1e05a',
+            'Cybersecurity (Nmap, Metasploit)': '#b07219',
+            'Windows Troubleshooting': '#3178c6',
+            'Python / Bash Scripting': '#3572A5',
+            'AI Tools (ChatGPT, Copilot)': '#dea584',
+            'Hardware Support': '#563d7c',
+            // GitHub language colors
+            Go: '#00ADD8',
+            Rust: '#dea584',
+            Python: '#3572A5',
+            JavaScript: '#f1e05a',
+            TypeScript: '#3178c6',
+            HTML: '#e34c26',
+            CSS: '#563d7c',
+            Shell: '#89e051',
+            C: '#555555',
+            'C++': '#f34b7d',
+            Ruby: '#701516',
+            Java: '#b07219',
+            PHP: '#4F5D95',
+            Swift: '#ffac45',
+            Kotlin: '#F18E33',
+            Dart: '#00B4AB',
+            Zig: '#ec915c',
+            Elixir: '#6e4a7e',
+            Clojure: '#db5855',
+            Haskell: '#5e5086',
+            Scala: '#c22d40',
+            Perl: '#0298c3',
+            Lua: '#000080',
+            R: '#198ce7',
+            Mathematica: '#dd1100',
+            Matlab: '#e16737',
+            Vue: '#41b883',
+            Angular: '#dd1b16',
+            Svelte: '#ff3e00',
+            Dockerfile: '#384d54',
+            Makefile: '#427819',
+            Markdown: '#083fa1',
+            JSON: '#292929',
+            YAML: '#cb171e',
+            TOML: '#9c4221',
+            XML: '#0060ac',
+        };
+
+        const CACHE_KEY = 'gh_portfolio_cache';
+        const CACHE_TTL = 25 * 60 * 60 * 1000;
+
+        /* ────────────────────────────────────────────────
+           MATRIX RAIN
+           ──────────────────────────────────────────────── */
+        (function initMatrix() {
+            const canvas = document.getElementById('matrix-canvas');
+            const ctx = canvas.getContext('2d');
+            let w, h, cols, drops, chars;
+
+            function resize() {
+                w = canvas.width = window.innerWidth;
+                h = canvas.height = window.innerHeight;
+                cols = Math.floor(w / 16);
+                drops = new Array(cols).fill(0);
+                chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            function draw() {
+                ctx.fillStyle = 'rgba(10,14,15,0.05)';
+                ctx.fillRect(0, 0, w, h);
+                ctx.font = '14px monospace';
+                for (let i = 0; i < drops.length; i++) {
+                    const char = chars[Math.floor(Math.random() * chars.length)];
+                    const x = i * 16;
+                    const y = drops[i] * 16;
+                    ctx.fillStyle = `rgba(0,255,136,${0.2 + Math.random() * 0.4})`;
+                    ctx.fillText(char, x, y);
+                    if (y > h && Math.random() > 0.975) drops[i] = 0;
+                    drops[i] += 0.8 + Math.random() * 0.6;
+                }
+                requestAnimationFrame(draw);
+            }
+            draw();
+        })();
+
+        /* ────────────────────────────────────────────────
+           UPTIME
+           ──────────────────────────────────────────────── */
+        (function uptime() {
+            const start = Date.now();
+            const el = document.getElementById('uptime');
+            setInterval(() => {
+                const diff = Date.now() - start;
+                const h = String(Math.floor(diff / 3600000)).padStart(2, '0');
+                const m = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
+                const s = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
+                el.textContent = `${h}:${m}:${s}`;
+            }, 1000);
+        })();
+
+        /* ────────────────────────────────────────────────
+           CACHE HELPERS
+           ──────────────────────────────────────────────── */
+        function getCache() {
+            try {
+                const raw = localStorage.getItem(CACHE_KEY);
+                if (!raw) return null;
+                const data = JSON.parse(raw);
+                if (Date.now() - data.ts > CACHE_TTL) {
+                    localStorage.removeItem(CACHE_KEY);
+                    return null;
+                }
+                return data.payload;
+            } catch { return null; }
+        }
+
+        function setCache(payload) {
+            try {
+                localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), payload }));
+            } catch { /* ignore */ }
+        }
+
+        /* ────────────────────────────────────────────────
+           FETCH with retry
+           ──────────────────────────────────────────────── */
+        async function fetchWithRetry(url, retries = 2) {
+            for (let i = 0; i <= retries; i++) {
+                try {
+                    const res = await fetch(url);
+                    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                    return await res.json();
+                } catch (e) {
+                    if (i === retries) throw e;
+                    await new Promise(r => setTimeout(r, 600 * (i + 1)));
+                }
+            }
+            throw new Error('Failed after retries');
+        }
+
+        /* ────────────────────────────────────────────────
+           FETCH GITHUB DATA
+           ──────────────────────────────────────────────── */
+        async function fetchGitHubData() {
+            let userData = null;
+            try {
+                userData = await fetchWithRetry(`https://api.github.com/users/${GITHUB_USERNAME}`);
+            } catch { /* fallback */ }
+
+            const repoPromises = REPO_NAMES.map(async (name) => {
+                try {
+                    const data = await fetchWithRetry(
+                        `https://api.github.com/repos/${GITHUB_USERNAME}/${name}`
+                    );
+                    return { name, data, ok: true };
+                } catch {
+                    return { name, data: null, ok: false };
+                }
+            });
+            const repoResults = await Promise.all(repoPromises);
+
+            const langMap = {};
+            for (const r of repoResults) {
+                if (r.ok && r.data && r.data.language) {
+                    const lang = r.data.language;
+                    langMap[lang] = (langMap[lang] || 0) + 1;
+                }
+            }
+            if (Object.keys(langMap).length === 0) {
+                Object.assign(langMap, STATIC_SKILLS);
+            }
+
+            const heatmapData = Array.from({ length: 26 * 7 }, () =>
+                Math.random() > 0.5 ? Math.floor(Math.random() * 6) : 0
+            );
+
+            return {
+                user: userData,
+                repos: repoResults,
+                languages: langMap,
+                heatmap: heatmapData,
+            };
+        }
+
+        /* ────────────────────────────────────────────────
+           RENDER FUNCTIONS
+           ──────────────────────────────────────────────── */
+        function renderProjectCard(name, data, fallbackDesc) {
+            const desc = data?.description || fallbackDesc || 'No description available.';
+            const stars = data?.stargazers_count ?? 0;
+            const forks = data?.forks_count ?? 0;
+            const lang = data?.language || 'Unknown';
+            const updated = data?.updated_at ? new Date(data.updated_at).toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric'
+            }) : 'Unknown';
+            const color = LANGUAGE_COLORS[lang] || '#888';
+
+            return `
+            <div class="project-card">
+              <div class="name">
+                ${name.replace(/-/g, ' ').toUpperCase()}
+                <span class="lang" style="border-color:${color};">${lang}</span>
+              </div>
+              <div class="desc">${desc}</div>
+              <div class="meta">
+                <span>⭐ ${stars}</span>
+                <span>🍴 ${forks}</span>
+                <span>📅 ${updated}</span>
+                <a href="https://github.com/${GITHUB_USERNAME}/${name}" target="_blank" rel="noopener" class="link">view →</a>
+              </div>
+            </div>
+          `;
+        }
+
+        function renderStats(user) {
+            const repos = user?.public_repos ?? '—';
+            document.getElementById('stat-repos').textContent = repos;
+        }
+
+        function renderLangBars(langMap) {
+            const total = Object.values(langMap).reduce((a, b) => a + b, 0);
+            if (total === 0) {
+                document.getElementById('lang-bars-container').innerHTML =
+                    '<div class="dim">No skills data available.</div>';
+                return;
+            }
+            const sorted = Object.entries(langMap).sort((a, b) => b[1] - a[1]);
+            let html = '';
+            for (const [name, count] of sorted) {
+                const pct = (count / total * 100).toFixed(1);
+                const color = LANGUAGE_COLORS[name] || '#888';
+                html += `
+              <div class="lang-bar-row">
+                <span class="lang-name">${name}</span>
+                <div class="lang-bar-track">
+                  <div class="lang-bar-fill" style="width:${pct}%;background:${color};"></div>
+                </div>
+                <span style="font-size:12px;color:var(--text-dim);width:44px;text-align:right;">${pct}%</span>
+              </div>
+            `;
+            }
+            document.getElementById('lang-bars-container').innerHTML = html;
+            requestAnimationFrame(() => {
+                document.querySelectorAll('.lang-bar-fill').forEach(el => {
+                    const w = el.style.width;
+                    el.style.width = '0';
+                    requestAnimationFrame(() => { el.style.width = w; });
+                });
+            });
+        }
+
+        function renderHeatmap(data) {
+            const container = document.getElementById('heatmap-container');
+            if (!data || data.length === 0) {
+                container.innerHTML = '<div class="dim">No activity data.</div>';
+                return;
+            }
+            let html = '';
+            for (let i = 0; i < data.length && i < 26 * 7; i++) {
+                const level = Math.min(data[i] || 0, 5);
+                html += `<div class="day l${level}" title="level ${level}"></div>`;
+            }
+            container.innerHTML = html;
+        }
+
+        /* ────────────────────────────────────────────────
+           MAIN LOAD
+           ──────────────────────────────────────────────── */
+        async function loadAll() {
+            const container = document.getElementById('projects-container');
+            const countBadge = document.getElementById('project-count');
+
+            const cached = getCache();
+            if (cached) {
+                applyData(cached);
+                return;
+            }
+
+            container.innerHTML = '<div class="loading">⏳ Fetching latest data from GitHub…</div>';
+
+            try {
+                const data = await fetchGitHubData();
+                setCache(data);
+                applyData(data);
+            } catch (err) {
+                console.error(err);
+                container.innerHTML = `
+              <div class="error-msg">⚠️ Failed to fetch GitHub data. Showing fallback.</div>
+              ${REPO_NAMES.map(name => renderProjectCard(name, null, FALLBACK_DESCS[name] || '')).join('')}
+            `;
+                countBadge.textContent = REPO_NAMES.length;
+                renderStats(null);
+                renderLangBars(STATIC_SKILLS);
+                renderHeatmap(Array.from({ length: 26 * 7 }, () => Math.floor(Math.random() * 4)));
+            }
+        }
+
+        function applyData(data) {
+            const container = document.getElementById('projects-container');
+            const countBadge = document.getElementById('project-count');
+
+            let html = '';
+            let validCount = 0;
+            for (const name of REPO_NAMES) {
+                const found = data.repos.find(r => r.name === name);
+                if (found && found.ok) {
+                    html += renderProjectCard(name, found.data, FALLBACK_DESCS[name]);
+                    validCount++;
+                } else {
+                    html += renderProjectCard(name, null, FALLBACK_DESCS[name] || '');
+                }
+            }
+            container.innerHTML = html;
+            countBadge.textContent = validCount || REPO_NAMES.length;
+
+            renderStats(data.user);
+            let totalStars = 0,
+                totalForks = 0,
+                totalIssues = 0;
+            for (const r of data.repos) {
+                if (r.ok && r.data) {
+                    totalStars += r.data.stargazers_count || 0;
+                    totalForks += r.data.forks_count || 0;
+                    totalIssues += r.data.open_issues_count || 0;
+                }
+            }
+            document.getElementById('stat-stars').textContent = totalStars;
+            document.getElementById('stat-forks').textContent = totalForks;
+            document.getElementById('stat-issues').textContent = totalIssues;
+
+            renderLangBars(data.languages);
+            renderHeatmap(data.heatmap);
+        }
+
+        /* ────────────────────────────────────────────────
+           KEYBOARD SHORTCUTS
+           ──────────────────────────────────────────────── */
+        document.addEventListener('keydown', (e) => {
+            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                e.preventDefault();
+                loadAll();
+            }
+            if ((e.metaKey || e.ctrlKey) && e.key === 'r') {
+                e.preventDefault();
+                loadAll();
+            }
+        });
+
+        document.getElementById('session-id').textContent =
+            '⚡' + Math.random().toString(36).substring(2, 6).toUpperCase();
+
+        loadAll();
+
+        console.log('%c⚡ MUHAMMAD EHSAN — FULL CV TERMINAL', 'color:#00ff88;font-size:20px;font-weight:bold;');
+        console.log('%cAll sections included — ready to impress.', 'color:#7a9a9a;');
+    </script>
+
+</body>
+</html>
